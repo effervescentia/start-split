@@ -6,6 +6,7 @@
 [![windows build](https://img.shields.io/appveyor/ci/effervescentia/start-split/master.svg?label=windows&style=flat-square)](https://ci.appveyor.com/project/effervescentia/start-split)
 [![coverage](https://img.shields.io/codecov/c/github/effervescentia/start-split/master.svg?style=flat-square)](https://codecov.io/github/effervescentia/start-split)
 [![deps](https://david-dm.org/effervescentia/start-split.svg?style=flat-square)](https://david-dm.org/effervescentia/start-split)
+
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg?style=flat-square)](https://github.com/semantic-release/semantic-release)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg?style=flat-square)](http://commitizen.github.io/cz-cli/)
 [![greenkeeper](https://badges.greenkeeper.io/effervescentia/start-split.svg)](https://greenkeeper.io/)
