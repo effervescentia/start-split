@@ -51,7 +51,7 @@ This task relies on `[{ path, data, map }]` input and provides the same, see [do
 
 ## Arguments
 
-`startSplit(map, concurrent)`
+`split(map, concurrent)`
 
 *   `map` – A map of directory name to a function that returns an array of start tasks.
 *   `concurrent` – Run task pipelines simultaneously using [`start-concurrent`][start-concurrent].
