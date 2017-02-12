@@ -10,7 +10,11 @@
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg?style=flat-square)](http://commitizen.github.io/cz-cli/)
 [![greenkeeper](https://badges.greenkeeper.io/effervescentia/start-split.svg)](https://greenkeeper.io/)
 
-split task checker for [Start](https://github.com/start-runner/start)
+split task pipelines for [Start](https://github.com/start-runner/start)
+
+Apply a different set of tasks to each directory. Partially to overcome
+[`start-write`](https://github.com/start-runner/write) stripping the root
+directory for cases when relative directory structure must be retained (simple typescript + mocha).
 
 ## Install
 
@@ -26,20 +30,30 @@ yarn add --dev start-split
 import Start from 'start';
 import reporter from 'start-pretty-reporter';
 import files from 'start-files';
-import startSplit from 'start-split';
+import read from 'start-read';
+import write from 'start-write';
+import split from 'start-split';
 
 const start = Start(reporter());
 
 export const task = () => start(
   files([ 'lib/**/*.js', 'test/**/*.js' ]),
-  startSplit()
+  read(),
+  split({
+    lib: () => [ write('build/') ],
+    test: () => [ write('testBuild/') ]
+  })
 );
 ```
 
-This task relies on array of files and provides the same, see [documentation](https://github.com/start-runner/start#readme) for details.
+This task relies on `[{ path, data, map }]` input and provides the same, see [documentation](https://github.com/start-runner/start#readme) for details.
 
 ## Arguments
 
-`startSplit(<ARG1>, <ARG2>)`
+`startSplit(map, concurrent)`
 
-* `<ARGUMENT NAME>` – `<ARGUMENT DESCRIPTION>`
+*   `map` – A map of directory name to a function that returns an array of start tasks.
+*   `concurrent` – Run task pipelines simultaneously using [`start-concurrent`][start-concurrent].
+    Defaults to `true`.
+
+[start-concurrent]: https://github.com/start-runner/concurrent

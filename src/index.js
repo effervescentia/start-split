@@ -3,7 +3,7 @@ import Start from 'start';
 import inputConnector from 'start-input-connector';
 import concurrent from 'start-concurrent';
 
-const splitTasks = (input, dirs, add) => {
+const split = (input, dirs, add) => {
   return Object.keys(dirs)
     .reduce((tasks, dir) => {
       const srcDir = resolve(process.cwd(), dir);
@@ -18,18 +18,19 @@ const splitTasks = (input, dirs, add) => {
     }, []);
 };
 
-const splitConcurrent = (input, dirs) => (log, reporter) => {
+const splitCon = (input, dirs) => function splitConcurrent(log, reporter) {
   const start = Start(reporter);
 
   return start(concurrent(
-    ...splitTasks(input, dirs, (tasks, subtasks) => tasks.push(() => start(...subtasks)))
+    ...split(input, dirs, (tasks, subtasks) => tasks.push(() => start(...subtasks)))
   ));
 };
 
-const splitSequential = (input, dirs) => (log, reporter) =>
-  Start(reporter)(
-    ...splitTasks(input, dirs, (tasks, subtasks) => tasks.push(...subtasks))
+const splitSeq = (input, dirs) => function splitSequential(log, reporter) {
+  return Start(reporter)(
+    ...split(input, dirs, (tasks, subtasks) => tasks.push(...subtasks))
   );
+};
 
 export default (dirs, concurr = true) => (input) => {
   if (!input) {
@@ -37,5 +38,5 @@ export default (dirs, concurr = true) => (input) => {
   }
 
   // eslint-disable-next-line no-ternary
-  return concurr ? splitConcurrent(input, dirs) : splitSequential(input, dirs);
+  return concurr ? splitCon(input, dirs) : splitSeq(input, dirs);
 };
