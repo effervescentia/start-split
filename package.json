@@ -21,7 +21,7 @@
     "url": "https://github.com/effervescentia/start-split/issues"
   },
   "files": [
-    "build/"
+    "dist/"
   ],
   "scripts": {
     "start": "start-runner -p re-start",
