@@ -1,7 +1,7 @@
 import { resolve } from 'path';
-import * as Start from 'start';
-import * as inputConnector from 'start-input-connector';
-import * as concurrent from 'start-concurrent';
+import Start from 'start';
+import inputConnector from 'start-input-connector';
+import concurrent from 'start-concurrent';
 
 const split = (input, dirs, add) => {
   return Object.keys(dirs)
